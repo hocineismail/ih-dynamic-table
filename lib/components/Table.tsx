@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
-import { ColumnType, Header } from "../types";
+
 import { debounce } from "../helper/debounce";
 
 import PaginationComponent from "./Pagination";
+import { ColumnType, Header } from "../types";
 
 interface TableProps {
   name: string;
@@ -48,7 +49,7 @@ interface TableProps {
  *
  * @returns {JSX.Element} The rendered Table component.
  */
-export default function DynamicTable({
+export function DynamicTable({
   name,
   searchIsEnabled,
   headers,

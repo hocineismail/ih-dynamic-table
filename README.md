@@ -32,10 +32,7 @@ Here's a basic example of how to use the Table component:
 
 ```jsx
 import React from "react";
-import { Table } from "ih-dynamic-table";
-// import our default style
-import "ih-dynamic-table/table-style.css";
-import "ih-dynamic-table/pagination-style.css";
+import { DynamicTable } from "ih-dynamic-table";
 
 const App = () => {
   const headers = [
@@ -68,11 +65,11 @@ const App = () => {
   );
 
   return (
-    <Table
+    <DynamicTable
       name="Users"
       headers={headers}
       data={data}
-      currency="USD"
+      currency="USD" // use any currency if you need
       searchIsEnabled={true}
       isLoading={false}
       error={null}

@@ -22,9 +22,4 @@ export type Header = {
   type?: ColumnType;
   disabled?: boolean;
   required?: boolean;
-
-  iconType?: {
-    name?: string;
-    Icon?: React.ReactDOM;
-  };
 };

@@ -1,9 +1,17 @@
 {
   "name": "ih-dynamic-table",
   "private": false,
-  "version": "0.0.1",
-  "main": "dist/ih-dynamic-table.umd.js",
-  "module": "dist/ih-dynamic-table.es.js",
+  "version": "0.0.3",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/lib/main.d.ts",
+      "default": "./dist/main.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "description": "ih-dynamic-table is a customizable and flexible dynamic table component for React. Designed to simplify the process of displaying and interacting with tabular data, this component offers built-in support for features like sorting, filtering, and pagination, making it ideal for use in modern web applications. It’s built using React and is easy to integrate into any React project as an npm dependency.",
   "peerDependencies": {
     "react": "^18.0.0",
@@ -11,13 +19,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -30,7 +38,11 @@
     "globals": "^15.14.0",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "glob": "^11.0.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-lib-inject-css": "^2.2.1"
   },
   "keywords": [
     "react",

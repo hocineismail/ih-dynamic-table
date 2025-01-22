@@ -19,7 +19,7 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onNavigateToPage,
-}) => {
+}): any => {
   let paginationArray: number[] = [];
 
   if (totalPages <= 5) {
