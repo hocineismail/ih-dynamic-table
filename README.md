@@ -1,5 +1,7 @@
 # Dynamic React Table Component
 
+![Description of the image](https://github.com/hocineismail/ih-dynamic-table/blob/main/examples/image.png?raw=true)
+
 A flexible and feature-rich table component for React applications with built-in sorting, searching, pagination, and more.
 
 ## Features
