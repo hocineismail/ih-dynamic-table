@@ -95,22 +95,22 @@ export default App;
 
 ## Props
 
-| Prop Name             | Type           | Description                                           | Required | Optional |
-| --------------------- | -------------- | ----------------------------------------------------- | -------- | -------- |
-| name                  | string         | The name of the table                                 |          | ✓        |
-| headers               | Array<Header>  | An array of header objects defining the table columns | ✓        |          |
-| data                  | Array<any>     | The data to be displayed in the table                 | ✓        |          |
-| isLoading             | boolean        | Indicates if the table data is loading                | ✓        |          |
-| error                 | string \| null | Error message to display if there's an error          | ✓        |          |
-| searchIsEnabled       | boolean        | Enables the search functionality                      |          | ✓        |
-| colorMap              | object         | A map of colors for rendering badges                  |          | ✓        |
-| currency              | string         | The currency code for formatting currency values      |          | ✓        |
-| renderActionsItem     | function       | A function to render action items for each row        |          | ✓        |
-| pagination            | object         | An object containing currentPage and totalPages       |          | ✓        |
-| onNavigateToPage      | function       | A function to handle page navigation                  |          | ✓        |
-| handleSelectedElement | function       | A function to handle selection of table elements      |          | ✓        |
-| handleSortColumn      | function       | A function to handle column sorting                   |          | ✓        |
-| handleUpdateItem      | function       | A function to handle updates to table items           |          | ✓        |
+| Prop Name           | Type           | Description                                           | Required | Optional |
+| ------------------- | -------------- | ----------------------------------------------------- | -------- | -------- |
+| name                | string         | The name of the table                                 |          | ✓        |
+| headers             | Array<Header>  | An array of header objects defining the table columns | ✓        |          |
+| data                | Array<any>     | The data to be displayed in the table                 | ✓        |          |
+| isLoading           | boolean        | Indicates if the table data is loading                | ✓        |          |
+| error               | string \| null | Error message to display if there's an error          | ✓        |          |
+| searchIsEnabled     | boolean        | Enables the search functionality                      |          | ✓        |
+| colorMap            | object         | A map of colors for rendering badges                  |          | ✓        |
+| currency            | string         | The currency code for formatting currency values      |          | ✓        |
+| renderActionsItem   | function       | A function to render action items for each row        |          | ✓        |
+| pagination          | object         | An object containing currentPage and totalPages       |          | ✓        |
+| onNavigateToPage    | function       | A function to handle page navigation                  |          | ✓        |
+| handleSelectElement | function       | A function to handle selection of table elements      |          | ✓        |
+| handleSortColumn    | function       | A function to handle column sorting                   |          | ✓        |
+| handleUpdateItem    | function       | A function to handle updates to table items           |          | ✓        |
 
 ## Header Object
 

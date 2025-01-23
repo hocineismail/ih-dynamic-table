@@ -17,7 +17,7 @@ interface TableProps {
   handleUpdateItem?: (name: string, value: any, col?: string) => void;
   handleSearchInput?: (value: any) => void;
   renderActionsItem?: (item: any) => JSX.Element;
-  selectElement: (ids: number | string[]) => void;
+  handleSelectElement: (ids: number | string[]) => void;
   handleSortColumn?: (column: string, direction: string) => void;
   pagination?: {
     currentPage: number;
@@ -44,7 +44,7 @@ interface TableProps {
  * @param {string} props.currency - The currency code for formatting currency values.
  * @param {Function} props.handleSearchInput - Function to get the search value.
  * @param {Function} props.onNavigateToPage - Function to handle navigation to a different page.
- * @param {Function} props.selectElement - Function to handle selection of table elements.
+ * @param {Function} props.handleSelectElement - Function to handle selection of table elements.
  *
  * @returns {JSX.Element} The rendered Table component.
  */
@@ -63,7 +63,7 @@ export function DynamicTable({
   currency,
   handleSearchInput,
   onNavigateToPage,
-  selectElement,
+  handleSelectElement,
 }: TableProps) {
   const [inputValue, setInputValue] = useState("");
   const [sortColumn, setSortColumn] = useState("fullname");
@@ -98,8 +98,8 @@ export function DynamicTable({
     const newSelection =
       selectedItems.length === data.length ? [] : data.map((item) => item.id);
     setSelectedItems(newSelection);
-    if (selectElement) {
-      selectElement(newSelection);
+    if (handleSelectElement) {
+      handleSelectElement(newSelection);
     }
     //  dispatch(setSelectedItem(newSelection));
   };
@@ -109,8 +109,8 @@ export function DynamicTable({
       ? selectedItems.filter((itemId) => itemId !== id)
       : [...selectedItems, id];
     setSelectedItems(newSelection);
-    if (selectElement) {
-      selectElement(newSelection);
+    if (handleSelectElement) {
+      handleSelectElement(newSelection);
     }
     //dispatch(setSelectedItem(newSelection));
   };
