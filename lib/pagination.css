@@ -1,5 +1,5 @@
 /* Container for the entire pagination component */
-.pagination-container {
+.ih-pagination-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +8,7 @@
 }
 
 /* Button styles for previous, next, first, and last */
-.pagination-btn {
+.ih-pagination-btn {
   background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -19,14 +19,14 @@
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.pagination-btn:disabled {
+.ih-pagination-btn:disabled {
   background-color: #ccc;
   border-color: #ccc;
   cursor: not-allowed;
 }
 
 /* Styles for individual page items */
-.pagination-item {
+.ih-pagination-item {
   background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -37,18 +37,18 @@
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.pagination-item.active {
+.ih-pagination-item.active {
   background-color: #2386c8 !important;
   border-color: #2386c8 !important;
   color: white !important;
 }
 
-.pagination-item:hover:not(.active):not(:disabled) {
+.ih-pagination-item:hover:not(.active):not(:disabled) {
   background-color: #eaeaea;
   border-color: #aaa;
 }
 
-.pagination-item:disabled {
+.ih-pagination-item:disabled {
   background-color: #ccc;
   border-color: #ccc;
   cursor: not-allowed;

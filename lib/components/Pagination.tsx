@@ -14,6 +14,9 @@ interface PaginationProps {
  * @param {function} props.onNavigateToPage - The function to call when navigating to a different page.
  *
  * @returns {JSX.Element} The rendered pagination component.
+ *
+ *
+ *
  */
 const PaginationComponent: React.FC<PaginationProps> = ({
   currentPage,
@@ -41,16 +44,16 @@ const PaginationComponent: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className="pagination-container">
+    <div className="ih-pagination-container">
       <button
-        className="pagination-btn"
+        className="ih-pagination-btn"
         onClick={() => onNavigateToPage(1)}
         disabled={currentPage === 1}
       >
         First
       </button>
       <button
-        className="pagination-btn"
+        className="ih-pagination-btn"
         onClick={() => onNavigateToPage(currentPage - 1)}
         disabled={currentPage === 1}
       >
@@ -69,14 +72,14 @@ const PaginationComponent: React.FC<PaginationProps> = ({
       ))}
 
       <button
-        className="pagination-btn"
+        className="ih-pagination-btn"
         onClick={() => onNavigateToPage(currentPage + 1)}
         disabled={totalPages === currentPage}
       >
         Next
       </button>
       <button
-        className="pagination-btn"
+        className="ih-pagination-btn"
         onClick={() => onNavigateToPage(totalPages)}
         disabled={totalPages === currentPage}
       >

@@ -22,7 +22,7 @@ A flexible and feature-rich table component for React applications with built-in
 
 To install the package, run:
 
-```
+```bash
 npm install ih-dynamic-table
 ```
 
@@ -68,15 +68,22 @@ const App = () => {
     <DynamicTable
       name="Users"
       headers={headers}
+      colorMap={{ open: "#28a745", closed: "#F44336" }}
       data={data}
-      currency="USD" // use any currency if you need
+      currency="USD"
+      handleSearchInput={(e) => console.log("search", e)}
       searchIsEnabled={true}
       isLoading={false}
       error={null}
+      handleSortColumn={(col, direction) => console.log(col, direction)}
+      handleUpdateItem={(name, value, dataKey) =>
+        console.log(name, value, dataKey)
+      }
+      selectElement={(name) => console.log(name)}
       renderActionsItem={renderActionsItem}
       pagination={{
         currentPage: 1,
-        totalPages: 5,
+        totalPages: 12,
       }}
       onNavigateToPage={(page) => console.log("Navigate to page", page)}
     />
@@ -88,22 +95,22 @@ export default App;
 
 ## Props
 
-| Prop Name             | Type           | Description                                           |
-| --------------------- | -------------- | ----------------------------------------------------- |
-| name                  | string         | The name of the table                                 |
-| headers               | Array<Header>  | An array of header objects defining the table columns |
-| data                  | Array<any>     | The data to be displayed in the table                 |
-| isLoading             | boolean        | Indicates if the table data is loading                |
-| error                 | string \| null | Error message to display if there's an error          |
-| searchIsEnabled       | boolean        | Enables the search functionality                      |
-| colorMap              | object         | A map of colors for rendering badges                  |
-| currency              | string         | The currency code for formatting currency values      |
-| renderActionsItem     | function       | A function to render action items for each row        |
-| pagination            | object         | An object containing currentPage and totalPages       |
-| onNavigateToPage      | function       | A function to handle page navigation                  |
-| handleSelectedElement | function       | A function to handle selection of table elements      |
-| handleSortColumn      | function       | A function to handle column sorting                   |
-| handlUpdateItem       | function       | A function to handle updates to table items           |
+| Prop Name             | Type           | Description                                           | Required | Optional |
+| --------------------- | -------------- | ----------------------------------------------------- | -------- | -------- |
+| name                  | string         | The name of the table                                 |          | ✓        |
+| headers               | Array<Header>  | An array of header objects defining the table columns | ✓        |          |
+| data                  | Array<any>     | The data to be displayed in the table                 | ✓        |          |
+| isLoading             | boolean        | Indicates if the table data is loading                | ✓        |          |
+| error                 | string \| null | Error message to display if there's an error          | ✓        |          |
+| searchIsEnabled       | boolean        | Enables the search functionality                      |          | ✓        |
+| colorMap              | object         | A map of colors for rendering badges                  |          | ✓        |
+| currency              | string         | The currency code for formatting currency values      |          | ✓        |
+| renderActionsItem     | function       | A function to render action items for each row        |          | ✓        |
+| pagination            | object         | An object containing currentPage and totalPages       |          | ✓        |
+| onNavigateToPage      | function       | A function to handle page navigation                  |          | ✓        |
+| handleSelectedElement | function       | A function to handle selection of table elements      |          | ✓        |
+| handleSortColumn      | function       | A function to handle column sorting                   |          | ✓        |
+| handleUpdateItem      | function       | A function to handle updates to table items           |          | ✓        |
 
 ## Header Object
 
@@ -114,7 +121,6 @@ Each header object in the `headers` array should have the following properties:
 - `type`: The type of data (e.g., 'text', 'currency', 'badge', 'option', 'image', etc.)
 - `sortable`: Whether the column is sortable
 - `options`: An array of options for 'option' type columns
-- `iconType`: An object containing icon information for 'iconType' columns
 
 ## Column Types
 
@@ -166,6 +172,7 @@ export type ColumnType =
    ```
 
 6. Boolean column:
+
    ```javascript
    { label: 'Active', dataKey: 'isActive', type: 'boolean' }
    ```
@@ -185,7 +192,6 @@ const data = [
     id: 1,
     profile: { fullname: "John Doe" },
     contact: { address: { street: "123 Main St" } },
-    skills: [{ name: "JavaScript" }, { name: "React" }],
   },
   // ... more data
 ];
@@ -195,41 +201,47 @@ const data = [
 
 The component comes with default styling, but you can override it by using the same class names in your own CSS file. Here are the main class names used:
 
-- `.table-container`: Container for the entire table
-- `.table`: The table element
-- `.table-header`: Table header cells
-- `.table-data`: Table data cells
-- `.table-title`: Table title
-- `.table-image`: Image within table cells
-- `.table-badge`: Badge styling
-- `.pagination-container`: Container for pagination
-- `.pagination-btn`: Pagination buttons
-- `.pagination-item`: Pagination number items
-
-Example of custom styling:
-
 ```css
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  padding: 1rem;
+/* Table Styles */
+.ih-table-container {
+  /* Container for the entire table */
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
+.ih-table {
+  /* Styles for the table element */
 }
 
-.table-header {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.ih-table-header {
+  /* Styles for the table header */
 }
 
-.table-data,
-.table-header {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+.ih-table-data {
+  /* Styles for the table data rows */
+}
+
+.ih-table-title {
+  /* Styles for the table title */
+}
+
+.ih-table-image {
+  /* Styles for images within the table */
+}
+
+.ih-table-badge {
+  /* Styles for badges within the table */
+}
+
+/* Pagination Styles */
+.ih-pagination-container {
+  /* Container for the pagination controls */
+}
+
+.ih-pagination-btn {
+  /* Styles for pagination buttons */
+}
+
+.ih-pagination-item {
+  /* Styles for individual pagination items */
 }
 
 /* Add more custom styles as needed */
@@ -242,8 +254,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License.
-
-```
-
-This updated README provides more detailed information about using dataKeys for complex data structures, explains how users can use their own CSS by overriding the provided class names, and includes examples of different column types. It also incorporates the updated types and provides a more comprehensive guide for users of your dynamic table component.
-```

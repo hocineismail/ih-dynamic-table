@@ -6,25 +6,24 @@ import PaginationComponent from "./Pagination";
 import { ColumnType, Header } from "../types";
 
 interface TableProps {
-  name: string;
+  name?: string;
   headers: Header[];
   data: any[];
   isLoading: boolean;
-  currency: string;
+  currency?: string;
   error: string | null;
   searchIsEnabled?: boolean;
   colorMap?: any;
-  setData: (data: any) => void;
-  handlUpdateItem?: (name: string, value: any, col?: string) => void;
-  getSearchValue?: (value: any) => void;
-  renderActionsItem: (item: any) => JSX.Element;
-  handleSelectedElement: (ids: number | string[]) => void;
+  handleUpdateItem?: (name: string, value: any, col?: string) => void;
+  handleSearchInput?: (value: any) => void;
+  renderActionsItem?: (item: any) => JSX.Element;
+  selectElement: (ids: number | string[]) => void;
   handleSortColumn?: (column: string, direction: string) => void;
   pagination?: {
     currentPage: number;
     totalPages: number;
   };
-  onNavigateToPage: (page: number) => void;
+  onNavigateToPage?: (page: number) => void;
 }
 
 /**
@@ -39,13 +38,13 @@ interface TableProps {
  * @param {string} props.error - Error message to be displayed if there is an error.
  * @param {Object} props.colorMap - A map of colors for rendering badges.
  * @param {Function} props.handleSortColumn - Function to handle sorting of columns.
- * @param {Function} props.handlUpdateItem - Function to handle updates to table items.
+ * @param {Function} props.handleUpdateItem - Function to handle updates to table items.
  * @param {Function} props.renderActionsItem - Function to render action items for each row.
  * @param {Object} props.pagination - Pagination information including currentPage and totalPages.
  * @param {string} props.currency - The currency code for formatting currency values.
- * @param {Function} props.getSearchValue - Function to get the search value.
+ * @param {Function} props.handleSearchInput - Function to get the search value.
  * @param {Function} props.onNavigateToPage - Function to handle navigation to a different page.
- * @param {Function} props.handleSelectedElement - Function to handle selection of table elements.
+ * @param {Function} props.selectElement - Function to handle selection of table elements.
  *
  * @returns {JSX.Element} The rendered Table component.
  */
@@ -58,13 +57,13 @@ export function DynamicTable({
   error,
   colorMap,
   handleSortColumn,
-  handlUpdateItem,
+  handleUpdateItem,
   renderActionsItem,
   pagination,
   currency,
-  getSearchValue,
+  handleSearchInput,
   onNavigateToPage,
-  handleSelectedElement,
+  selectElement,
 }: TableProps) {
   const [inputValue, setInputValue] = useState("");
   const [sortColumn, setSortColumn] = useState("fullname");
@@ -80,14 +79,14 @@ export function DynamicTable({
   }, [selectedItems, data.length]);
 
   const debouncedChangeHandler = useMemo(() => {
-    if (getSearchValue) {
-      return debounce(getSearchValue, 500);
+    if (handleSearchInput) {
+      return debounce(handleSearchInput, 500);
     }
     return undefined;
   }, []);
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (getSearchValue) {
+    if (handleSearchInput) {
       setInputValue(e.target.value);
       if (debouncedChangeHandler) {
         debouncedChangeHandler(e.target.value);
@@ -99,8 +98,8 @@ export function DynamicTable({
     const newSelection =
       selectedItems.length === data.length ? [] : data.map((item) => item.id);
     setSelectedItems(newSelection);
-    if (handleSelectedElement) {
-      handleSelectedElement(newSelection);
+    if (selectElement) {
+      selectElement(newSelection);
     }
     //  dispatch(setSelectedItem(newSelection));
   };
@@ -110,8 +109,8 @@ export function DynamicTable({
       ? selectedItems.filter((itemId) => itemId !== id)
       : [...selectedItems, id];
     setSelectedItems(newSelection);
-    if (handleSelectedElement) {
-      handleSelectedElement(newSelection);
+    if (selectElement) {
+      selectElement(newSelection);
     }
     //dispatch(setSelectedItem(newSelection));
   };
@@ -176,8 +175,8 @@ export function DynamicTable({
           <select
             value={value}
             onChange={(e) => {
-              if (handlUpdateItem) {
-                handlUpdateItem(item.id, e.target.value, dataKey);
+              if (handleUpdateItem) {
+                handleUpdateItem(item.id, e.target.value, dataKey);
               }
             }}
           >
@@ -190,17 +189,17 @@ export function DynamicTable({
         );
       case "boolean":
         return (
-          <label className="switch">
+          <label className="ih-switch">
             <input
               type="checkbox"
               checked={value}
               onChange={(e) => {
-                if (handlUpdateItem) {
-                  handlUpdateItem(item.id, e.target.checked, dataKey);
+                if (handleUpdateItem) {
+                  handleUpdateItem(item.id, e.target.checked, dataKey);
                 }
               }}
             />
-            <span className="slider round"></span>
+            <span className="ih-slider round"></span>
           </label>
         );
       case "html":
@@ -222,14 +221,14 @@ export function DynamicTable({
         return value ? <a href={value}> Link </a> : "-";
       case "image":
         return value ? (
-          <img src={value} alt="avatar" className="table-image" />
+          <img src={value} alt="avatar" className="ih-table-image" />
         ) : (
           "-"
         );
       case "badge":
         return (
           <span
-            className="table-badge"
+            className="ih-table-badge"
             style={{ backgroundColor: colorMap[value.toLowerCase()] }}
           >
             {value}
@@ -243,30 +242,30 @@ export function DynamicTable({
   };
 
   if (error) {
-    return <div className="table-error">{error}</div>;
+    return <div className="ih-table-error">{error}</div>;
   }
 
   if (isLoading) {
-    return <div className="table-loading">Loading...</div>;
+    return <div className="ih-table-loading">Loading...</div>;
   }
   return (
-    <div className="table-container">
-      {name && <h2 className="table-title">{name}</h2>}
-      <div className="table-header">
+    <div className="ih-table-container">
+      {name && <h2 className="ih-table-title">{name}</h2>}
+      <div className="ih-table-header">
         {searchIsEnabled && (
           <input
             type="text"
             value={inputValue}
             placeholder={`Search...`}
-            className="table-search"
+            className="ih-table-search"
             onChange={onSearch}
           />
         )}
       </div>
-      <table className="table">
+      <table className="ih-table">
         <thead>
           <tr>
-            <th className="table-header">
+            <th className="ih-table-header">
               <input
                 type="checkbox"
                 onChange={handleSelectAll}
@@ -292,13 +291,13 @@ export function DynamicTable({
                 {header.sortable && renderSortIcon(header.dataKey)}
               </th>
             ))}
-            <th>Actions</th>
+            {renderActionsItem && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td className="table-data">
+              <td className="ih-table-data">
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(item.id)}
@@ -310,14 +309,16 @@ export function DynamicTable({
                   {renderCell(item, header.dataKey, header?.type)}
                 </td>
               ))}
-              <td className="table-data col-action">
-                {renderActionsItem(item)}
-              </td>
+              {renderActionsItem && (
+                <td className="ih-table-data col-action">
+                  {renderActionsItem(item)}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-      {pagination && pagination.totalPages > 1 && (
+      {pagination && onNavigateToPage && pagination.totalPages > 1 && (
         <PaginationComponent
           currentPage={pagination.currentPage}
           totalPages={pagination.totalPages}
